@@ -1,6 +1,9 @@
+import time
+
 import driver as driver
 import openpyxl
 from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.chrome.service import Service
 # -------     Read Data from excel   ---------
 from selenium.webdriver.common.by import By
@@ -27,79 +30,81 @@ for r in range(1, 9):
     value = sheet.cell(r + 1, c + 4).value
     print(value)
 
-        if action=="open browser":
-            
+    if action == "open browser":
 
-            driver = webdriver.Chrome(service=serv_obj)
-        elif action=="enterUrl":
-            print(action)
-            print("Enter Url")
-            driver.get(value)
-        elif action=="quit":
-            driver.quit()
-        else:
-            print("action is not definded")
-        if locator_type=="id":
-            element = driver.find_element(By.ID(locator_value))
-            if action == "sendKeys":
-                element.clear()
-                element.send_keys(value)
-            elif action == "click":
-                element.click()
-            elif action == "isDisplyed":
-                element.is_displayed()
-            elif action == "getText":
-                element.text()
+        driver = webdriver.Chrome(service=serv_obj)
+    elif action == "enterUrl":
+        print(action)
+        print("Enter Url")
+        driver.get(value)
+    elif action == "quit":
+        driver.quit()
+    # else:
+    #     print("action is not definded")
+    if locator_type == "id":
+        print(locator_value)
+        element = driver.find_element(By.ID, locator_value)
+        if action == "sendKeys":
+            element.clear()
+            element.send_keys(value)
+        elif action == "click":
+            element.click()
+        elif action == "isDisplyed":
+            element.is_displayed()
+        elif action == "getText":
+            element.text()
 
-        elif locator_type=="name":
-            element = driver.find_element(By.NAME(locator_value))
-            if action == "sendKeys":
-                element.clear()
-                element.send_keys(value)
-            elif action == "click":
-                element.click()
-            elif action == "isDisplyed":
-                element.is_displayed()
-            elif action == "getText":
-                element.text()
+    elif locator_type == "name":
+        element = driver.find_element(By.NAME,locator_value)
+        if action == "sendKeys":
+            element.clear()
+            element.send_keys(value)
+        elif action == "click":
+            element.click()
+        elif action == "isDisplyed":
+            element.is_displayed()
+        elif action == "getText":
+            element.text()
+            time.sleep(5)
+    elif locator_type == "xpath":
+        print(locator_value)
+        time.sleep(3)
+        element = driver.find_element(By.XPATH,locator_value)
+        if action == "sendKeys":
+            element.clear()
+            element.send_keys(value)
+        elif action == "click":
+            element.click()
+        elif action == "isDisplyed":
+            element.is_displayed()
+        elif action == "getText":
+            element.text()
 
-        elif locator_type== "xpath":
-            element = driver.find_element(By.XPATH(locator_value))
-            if action == "sendKeys":
-                element.clear()
-                element.send_keys(value)
-            elif action == "click":
-                element.click()
-            elif action == "isDisplyed":
-                element.is_displayed()
-            elif action == "getText":
-                element.text()
-
-        elif locator_type== "css":
-            element = driver.find_element(By.CSS_SELECTOR(locator_value))
-            if action == "sendKeys":
-                element.clear()
-                element.send_keys(value)
-            elif action == "click":
-                element.click()
-            elif action == "isDisplyed":
-                element.is_displayed()
-            elif action == "getText":
-                element.text()
+    elif locator_type == "css":
+        element = driver.find_element(By.CSS_SELECTOR,locator_value)
+        if action == "sendKeys":
+            element.clear()
+            element.send_keys(value)
+        elif action == "click":
+            element.click()
+        elif action == "isDisplyed":
+            element.is_displayed()
+        elif action == "getText":
+            element.text()
 
 
-        elif locator_type=="linkText":
-            element = driver.find_element(By.LINK_TEXT(locator_value))
+    elif locator_type == "linkText":
+        element = driver.find_element(By.LINK_TEXT,locator_value)
 
-            if action == "click":
-                element.click()
+        if action == "click":
+            element.click()
 
-        elif locator_type=="partialLinkText":
-            element = driver.find_element(By.PARTIAL_LINK_TEXT(locator_value))
+    elif locator_type == "partialLinkText":
+        element = driver.find_element(By.PARTIAL_LINK_TEXT,locator_value)
 
-            if action == "click":
-                element.click()
+        if action == "click":
+            element.click()
 
-        else:
-            print("lcator type is wrong")
+    else:
+        print("lcator type is ")
 print("hello Good mrng")
